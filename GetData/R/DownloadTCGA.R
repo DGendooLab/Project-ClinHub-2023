@@ -1,42 +1,281 @@
-LoadData <- function(dataset, targetPath){
-  # Download BRCA data
-  DIR <- paste(targetPath, dataset, sep = "")
+LoadData <- function(dataset, targetPath, category){
+  # Download data under specified category
+  # DIR <- paste(targetPath, dataset, sep = "")
 
-  if (!dir.exists(DIR)){
-    dir.create(DIR)
+  if (!dir.exists(targetPath)){
+    dir.create(targetPath)
   }
 
-  Data <- getFirehoseData(
-    dataset = dataset,
-    RNASeqGene = FALSE,
-    RNASeq2Gene = FALSE,
-    clinical = TRUE,
-    miRNASeqGene = FALSE,
-    miRNASeqGeneType = "read_count",
-    RNASeq2GeneNorm = TRUE,
-    CNASNP = FALSE,
-    CNVSNP = FALSE,
-    CNASeq = FALSE,
-    CNACGH = FALSE,
-    Methylation = FALSE, # File path too long, to be discussed ...
-    Mutation = FALSE,
-    mRNAArray = FALSE, # File path too long, covered by RNA_NORM
-    miRNAArray = FALSE,
-    RPPAArray = FALSE,
-    GISTIC = FALSE,
-    RNAseqNorm = "raw_count",
-    RNAseq2Norm = "normalized_counts",
-    destdir = DIR,
-    forceDownload = TRUE,
-    fileSizeLimit = 1000,
-    getUUIDs = FALSE
-  )
-  return(Data)
+  if(category == "RNASeqGene"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, RNASeqGene = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "RNASeq2Gene"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, RNASeq2Gene = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "miRNASeqGene"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, miRNASeqGene = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "RNASeq2GeneNorm"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, RNASeq2GeneNorm = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "CNASNP"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, CNASNP = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "CNVSNP"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, CNVSNP = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "CNASeq"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, CNASeq = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "CNACGH"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, CNACGH = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "Methylation"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, Methylation = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "Mutation"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, Mutation = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "mRNAArray"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, mRNAArray = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "miRNAArray"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, miRNAArray = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "RPPAArray"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, RPPAArray = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+        -1
+      }
+    )
+  }
+
+  if(category == "GISTIC"){
+    state <- tryCatch(
+      expr = {
+        Data <- getFirehoseData(dataset = dataset, GISTIC = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+        exprm <- biocExtract(Data, category)
+        1
+      },
+      error = function(e){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        0
+      },
+      warning = function(w){
+        print(paste0("Filepath too long! Data under category ", category, " are hence unavailable. Try running the code on a non-Windows10/11 OS."))
+        -1
+      }
+    )
+  }
+
+  if(state != 1){
+    return(data.frame())
+  }
+
+  return(exprm)
 }
 
-GetPhenoData <- function(data){
+GetPhenoData <- function(dataset, targetPath){
+  tryCatch(
+    expr = {
+      Data <- getFirehoseData(dataset = dataset, clinical = TRUE, destdir = targetPath, forceDownload = TRUE, fileSizeLimit = 1000)
+    },
+    warning = function(w){
+      print("Filepath too long! Data under this category are hence unavailable. Try running the code on a non-Windows10/11 OS.")
+    }
+  )
   # Exstract Clinical data (to Bioconductor Classes)
-  Clinical <- biocExtract(data, "clinical")
+  Clinical <- biocExtract(Data, "clinical")
 
   # Clinical row names - dots to dashes, lower to upper
   i <- 1
@@ -46,17 +285,4 @@ GetPhenoData <- function(data){
     i <- i + 1
   }
   return(Clinical)
-}
-
-GetExpressionSet <- function(data){
-  ExpSet <- biocExtract(data, "RNASeq2GeneNorm")
-  return(ExpSet)
-}
-
-TCGA_2_MAE <- function(experiments, pData, fData = NULL){
-  mae <- MultiAssayExperiment()
-  mae <- addAssay(mae, data = experiments, assay_type = "GeneExpression")
-  mae <- metadata(mae, sample_data = pData, feature_data = fData)
-  mae <- validate(mae)
-  return(mae)
 }
