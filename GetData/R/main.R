@@ -5,6 +5,9 @@ source("~/GetData/R/DownloadTCGA.R")
 # Set system-default parameter
 init()
 
+# Set destination path here
+DIR = "D://"
+
 # Get the list of Firehose datasets
 firehose_ls <- getFirehoseDatasets()
 
@@ -31,7 +34,7 @@ expname_ls <- c(
 Tumour_TCGA <- list()
 for (dataset in firehose_ls){
   # Get phenodata
-  tmp_pData <- GetPhenoData(dataset, "D://")
+  tmp_pData <- GetPhenoData(dataset, DIR)
 
   # Get ExperimentList
   maplist <- list()
@@ -39,7 +42,7 @@ for (dataset in firehose_ls){
   tmp_map <- data.frame()
 
   for (exp in expname_ls){
-    tmp_exp <- LoadData(dataset, "D://", exp)
+    tmp_exp <- LoadData(dataset, DIR, exp)
     if(length(tmp_exp) != 0){
       tmp_explist[exp] <- tmp_exp
       if(exp == "GISTIC"){
